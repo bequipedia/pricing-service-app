@@ -1,4 +1,4 @@
-package com.example.pricing_service;
+package com.example.pricingservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
