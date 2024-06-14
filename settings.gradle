@@ -1,1 +1,3 @@
 rootProject.name = 'pricing-service'
+include 'IntTest'
+
