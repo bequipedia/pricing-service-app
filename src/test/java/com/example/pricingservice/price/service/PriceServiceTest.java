@@ -1,8 +1,8 @@
-package com.example.pricingservice.application.service;
+package com.example.pricingservice.price.service;
 
-import com.example.pricingservice.application.PriceService;
-import com.example.pricingservice.domain.Price;
-import com.example.pricingservice.domain.PriceRepository;
+import com.example.pricingservice.price.application.PriceService;
+import com.example.pricingservice.price.domain.Price;
+import com.example.pricingservice.price.domain.PriceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,16 +34,16 @@ public class PriceServiceTest {
     }
 
     @DisplayName("findApplicablePrice returns OK with various dates")
-    @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
+    @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void testFindApplicablePrice(LocalDateTime applicationDate, double expectedPrice) {
+    public void testFindApplicablePrice(LocalDateTime applicableDate, double expectedPrice) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
         Price price = new Price(null, 1, LocalDateTime.parse("2020-06-14-00.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 1, 35455, 0, expectedPrice, "EUR");
 
-        when(priceRepository.findTopByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(35455, 1, applicationDate, applicationDate))
+        when(priceRepository.findApplicablePrice(35455, 1, applicableDate))
                 .thenReturn(Optional.of(price));
 
-        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicationDate);
+        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicableDate);
         assertTrue(result.isPresent());
         assertEquals(expectedPrice, result.get().getPrice());
     }
@@ -51,12 +51,12 @@ public class PriceServiceTest {
     @Test
     public void shouldCatchExceptionWhenNotFound() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14-10.00.00", formatter);
+        LocalDateTime applicableDate = LocalDateTime.parse("2020-06-14-10.00.00", formatter);
 
-        when(priceRepository.findTopByProductIdAndBrandIdAndStartDateLessThanEqualAndEndDateGreaterThanEqualOrderByPriorityDesc(35455, 1, applicationDate, applicationDate))
+        when(priceRepository.findApplicablePrice(35455, 1, applicableDate))
                 .thenThrow(new RuntimeException("DB error"));
 
-        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicationDate);
+        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicableDate);
         assertTrue(result.isEmpty());
     }
 
