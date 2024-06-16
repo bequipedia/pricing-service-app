@@ -32,11 +32,11 @@ Following an Hexagonal Architecture approach:
 
 - `GET /prices`: Query prices.
     - Parameters:
-        - `applicationDate` (ISO 8601 DateTime)
+        - `applicableDate` (ISO 8601 DateTime)
         - `productId` (int)
         - `brandId` (int)
 ### Example Request
-    curl -X GET "http://localhost:8080/prices?applicationDate=2020-06-14T10:00:00&productId=35455&brandId=1"
+    curl -X GET "http://localhost:8080/prices?applicableDate=2020-06-14T10:00:00&productId=35455&brandId=1"
 ### Example Response
 
 {

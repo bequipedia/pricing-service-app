@@ -41,16 +41,16 @@ public class PriceControllerTest {
     }
 
     @DisplayName("getPrice returns OK with various dates")
-    @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
+    @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void shouldReturnOkWhenCallGetPrice(LocalDateTime applicationDate, double expectedPrice) throws Exception {
+    public void shouldReturnOkWhenCallGetPrice(LocalDateTime applicableDate, double expectedPrice) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
         Price price = new Price(null, 1, LocalDateTime.parse("2020-06-14-00.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 1, 35455, 0, expectedPrice, "EUR");
 
-        when(priceService.findApplicablePrice(35455, 1, applicationDate)).thenReturn(Optional.of(price));
+        when(priceService.findApplicablePrice(35455, 1, applicableDate)).thenReturn(Optional.of(price));
 
         mockMvc.perform(get("/prices")
-                        .param("applicationDate", applicationDate.toString())
+                        .param("applicableDate", applicableDate.toString())
                         .param("productId", "35455")
                         .param("brandId", "1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -62,12 +62,12 @@ public class PriceControllerTest {
     @Test
     public void shouldReturnNotFoundWhenGetPriceNotFound() throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
-        LocalDateTime applicationDate = LocalDateTime.parse("2020-06-14-10.00.00", formatter);
+        LocalDateTime applicableDate = LocalDateTime.parse("2020-06-14-10.00.00", formatter);
 
-        when(priceService.findApplicablePrice(35455, 1, applicationDate)).thenReturn(Optional.empty());
+        when(priceService.findApplicablePrice(35455, 1, applicableDate)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/prices")
-                        .param("applicationDate", "2020-06-14T10:00:00")
+                        .param("applicableDate", "2020-06-14T10:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
                         .contentType(MediaType.APPLICATION_JSON))

@@ -19,11 +19,11 @@ public class PriceController {
 
     @GetMapping("/prices")
     public ResponseEntity<Price> getPrice(
-            @RequestParam("applicationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate,
+            @RequestParam("applicableDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicableDate,
             @RequestParam("productId") int productId,
             @RequestParam("brandId") int brandId) {
 
-        Optional<Price> price = priceService.findApplicablePrice(productId, brandId, applicationDate);
+        Optional<Price> price = priceService.findApplicablePrice(productId, brandId, applicableDate);
         return price.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

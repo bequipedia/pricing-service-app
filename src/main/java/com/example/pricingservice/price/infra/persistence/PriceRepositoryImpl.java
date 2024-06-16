@@ -20,7 +20,7 @@ public class PriceRepositoryImpl implements PriceRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public Optional<Price> findApplicablePrice(int productId, int brandId, LocalDateTime applicationDate) {
+    public Optional<Price> findApplicablePrice(int productId, int brandId, LocalDateTime applicableDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<JPAPrice> criteriaQuery = criteriaBuilder.createQuery(JPAPrice.class);
 
@@ -28,8 +28,8 @@ public class PriceRepositoryImpl implements PriceRepositoryCustom {
 
         Predicate productIdPredicate = criteriaBuilder.equal(price.get("productId"), productId);
         Predicate brandIdPredicate = criteriaBuilder.equal(price.get("brandId"), brandId);
-        Predicate startDatePredicate = criteriaBuilder.lessThanOrEqualTo(price.get("startDate"), applicationDate);
-        Predicate endDatePredicate = criteriaBuilder.greaterThanOrEqualTo(price.get("endDate"), applicationDate);
+        Predicate startDatePredicate = criteriaBuilder.lessThanOrEqualTo(price.get("startDate"), applicableDate);
+        Predicate endDatePredicate = criteriaBuilder.greaterThanOrEqualTo(price.get("endDate"), applicableDate);
 
         criteriaQuery.where(criteriaBuilder.and(productIdPredicate, brandIdPredicate, startDatePredicate, endDatePredicate));
         criteriaQuery.orderBy(criteriaBuilder.desc(price.get("priority")));

@@ -48,11 +48,11 @@ public class PriceE2ETest {
     }
 
     @DisplayName("getPrice with various dates")
-    @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
+    @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void shouldGetPrice(LocalDateTime applicationDate, double expectedPrice) {
+    public void shouldGetPrice(LocalDateTime applicableDate, double expectedPrice) {
         given()
-                .param("applicationDate", applicationDate.toString())
+                .param("applicableDate", applicableDate.toString())
                 .param("productId", "35455")
                 .param("brandId", "1")
                 .when()

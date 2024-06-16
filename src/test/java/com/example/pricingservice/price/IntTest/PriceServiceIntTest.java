@@ -48,10 +48,10 @@ public class PriceServiceIntTest {
     }
 
     @DisplayName("findApplicablePrice with various dates")
-    @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
+    @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void shouldFindApplicablePrice(LocalDateTime applicationDate, double expectedPrice) {
-        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicationDate);
+    public void shouldFindApplicablePrice(LocalDateTime applicableDate, double expectedPrice) {
+        Optional<Price> result = priceService.findApplicablePrice(35455, 1, applicableDate);
         assertTrue(result.isPresent());
         assertEquals(expectedPrice, result.get().getPrice());
     }

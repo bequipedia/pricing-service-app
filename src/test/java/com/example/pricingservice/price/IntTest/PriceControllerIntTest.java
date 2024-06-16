@@ -51,11 +51,11 @@ public class PriceControllerIntTest {
     }
 
     @DisplayName("shouldGetPrice with various dates")
-    @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
+    @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void shouldGetPrice(LocalDateTime applicationDate, double expectedPrice) throws Exception {
+    public void shouldGetPrice(LocalDateTime applicableDate, double expectedPrice) throws Exception {
         mockMvc.perform(get("/prices")
-                        .param("applicationDate", applicationDate.toString())
+                        .param("applicableDate", applicableDate.toString())
                         .param("productId", "35455")
                         .param("brandId", "1")
                         .contentType(MediaType.APPLICATION_JSON))
