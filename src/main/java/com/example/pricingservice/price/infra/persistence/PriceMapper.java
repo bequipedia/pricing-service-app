@@ -3,7 +3,7 @@ package com.example.pricingservice.price.infra.persistence;
 import com.example.pricingservice.price.domain.Price;
 
 public class PriceMapper {
-    public static Price toDomain(PriceEntity entity) {
+    public static Price toDomain(JPAPrice entity) {
         return new Price(
                 entity.getId(),
                 entity.getBrandId(),
@@ -17,8 +17,8 @@ public class PriceMapper {
         );
     }
 
-    public static PriceEntity toEntity(Price domain) {
-        return new PriceEntity(
+    public static JPAPrice toEntity(Price domain) {
+        return new JPAPrice(
                 domain.getId(),
                 domain.getBrandId(),
                 domain.getStartDate(),

@@ -1,7 +1,7 @@
 package com.example.pricingservice.price.IntTest;
 
 import com.example.pricingservice.price.domain.PriceRepository;
-import com.example.pricingservice.price.infra.persistence.PriceEntity;
+import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,7 +35,7 @@ public class PriceControllerIntTest {
         priceRepository.deleteAll();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
     priceRepository.save(
-        new PriceEntity(
+        new JPAPrice(
             null,
             1,
             LocalDateTime.parse("2020-06-14-00.00.00", formatter),
@@ -45,9 +45,9 @@ public class PriceControllerIntTest {
             0,
             35.50,
             "EUR"));
-        priceRepository.save(new PriceEntity(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
-        priceRepository.save(new PriceEntity(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
-        priceRepository.save(new PriceEntity(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
+        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
+        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
+        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
     }
 
     @DisplayName("shouldGetPrice with various dates")

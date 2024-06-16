@@ -1,6 +1,6 @@
 package com.example.pricingservice.price.infra.config;
 
-import com.example.pricingservice.price.infra.persistence.PriceEntity;
+import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import com.example.pricingservice.price.domain.PriceRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ public class DataInit {
     return args -> {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
       priceRepository.save(
-          new PriceEntity(
+          new JPAPrice(
               null,
               1,
               LocalDateTime.parse("2020-06-14-00.00.00", formatter),
@@ -27,7 +27,7 @@ public class DataInit {
               35.50,
               "EUR"));
       priceRepository.save(
-          new PriceEntity(
+          new JPAPrice(
               null,
               1,
               LocalDateTime.parse("2020-06-14-15.00.00", formatter),
@@ -38,7 +38,7 @@ public class DataInit {
               25.45,
               "EUR"));
       priceRepository.save(
-          new PriceEntity(
+          new JPAPrice(
               null,
               1,
               LocalDateTime.parse("2020-06-15-00.00.00", formatter),
@@ -49,7 +49,7 @@ public class DataInit {
               30.50,
               "EUR"));
       priceRepository.save(
-          new PriceEntity(
+          new JPAPrice(
               null,
               1,
               LocalDateTime.parse("2020-06-15-16.00.00", formatter),

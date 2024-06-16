@@ -1,6 +1,6 @@
 package com.example.pricingservice.price.domain;
 
-import com.example.pricingservice.price.infra.persistence.PriceEntity;
+import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import com.example.pricingservice.price.infra.persistence.PriceMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,9 +22,9 @@ public class PriceRepositoryImpl implements PriceRepositoryCustom {
     @Override
     public Optional<Price> findApplicablePrice(int productId, int brandId, LocalDateTime applicationDate) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<PriceEntity> criteriaQuery = criteriaBuilder.createQuery(PriceEntity.class);
+        CriteriaQuery<JPAPrice> criteriaQuery = criteriaBuilder.createQuery(JPAPrice.class);
 
-        Root<PriceEntity> price = criteriaQuery.from(PriceEntity.class);
+        Root<JPAPrice> price = criteriaQuery.from(JPAPrice.class);
 
         Predicate productIdPredicate = criteriaBuilder.equal(price.get("productId"), productId);
         Predicate brandIdPredicate = criteriaBuilder.equal(price.get("brandId"), brandId);
@@ -34,8 +34,8 @@ public class PriceRepositoryImpl implements PriceRepositoryCustom {
         criteriaQuery.where(criteriaBuilder.and(productIdPredicate, brandIdPredicate, startDatePredicate, endDatePredicate));
         criteriaQuery.orderBy(criteriaBuilder.desc(price.get("priority")));
 
-        TypedQuery<PriceEntity> query = entityManager.createQuery(criteriaQuery);
-        List<PriceEntity> result = query.setMaxResults(1).getResultList();
+        TypedQuery<JPAPrice> query = entityManager.createQuery(criteriaQuery);
+        List<JPAPrice> result = query.setMaxResults(1).getResultList();
 
         return result.isEmpty() ? Optional.empty() : Optional.of(PriceMapper.toDomain(result.get(0)));
     }
