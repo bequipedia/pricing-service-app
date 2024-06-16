@@ -1,4 +1,4 @@
-package com.example.pricingservice.price.service;
+package com.example.pricingservice.price.application.service;
 
 import com.example.pricingservice.price.application.PriceService;
 import com.example.pricingservice.price.domain.Price;
@@ -36,7 +36,7 @@ public class PriceServiceTest {
     @DisplayName("findApplicablePrice returns OK with various dates")
     @ParameterizedTest(name = "{index} => applicableDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void testFindApplicablePrice(LocalDateTime applicableDate, double expectedPrice) {
+    public void shouldFindApplicablePrice(LocalDateTime applicableDate, double expectedPrice) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
         Price price = new Price(null, 1, LocalDateTime.parse("2020-06-14-00.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 1, 35455, 0, expectedPrice, "EUR");
 

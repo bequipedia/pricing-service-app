@@ -47,10 +47,10 @@ public class PriceE2ETest {
         priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
     }
 
-    @DisplayName("Test getPrice with various dates")
+    @DisplayName("getPrice with various dates")
     @ParameterizedTest(name = "{index} => applicationDate={0}, expectedPrice={1}")
     @MethodSource("priceProvider")
-    public void testGetPrice(LocalDateTime applicationDate, double expectedPrice) {
+    public void shouldGetPrice(LocalDateTime applicationDate, double expectedPrice) {
         given()
                 .param("applicationDate", applicationDate.toString())
                 .param("productId", "35455")
