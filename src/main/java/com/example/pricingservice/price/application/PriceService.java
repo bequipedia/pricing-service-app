@@ -1,7 +1,7 @@
 package com.example.pricingservice.price.application;
 
 import com.example.pricingservice.price.domain.Price;
-import com.example.pricingservice.price.domain.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

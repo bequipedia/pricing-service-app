@@ -2,7 +2,7 @@ package com.example.pricingservice.price.IntTest;
 
 import com.example.pricingservice.price.application.PriceService;
 import com.example.pricingservice.price.domain.Price;
-import com.example.pricingservice.price.domain.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceRepository;
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

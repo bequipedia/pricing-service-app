@@ -1,6 +1,6 @@
 package com.example.pricingservice.price.e2eTest;
 
-import com.example.pricingservice.price.domain.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceRepository;
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;

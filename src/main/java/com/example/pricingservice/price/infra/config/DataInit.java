@@ -1,7 +1,7 @@
 package com.example.pricingservice.price.infra.config;
 
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
-import com.example.pricingservice.price.domain.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

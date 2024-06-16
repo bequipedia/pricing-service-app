@@ -1,5 +1,7 @@
-package com.example.pricingservice.price.domain;
+package com.example.pricingservice.price.infra.persistence;
 
+import com.example.pricingservice.price.domain.Price;
+import com.example.pricingservice.price.domain.PriceRepositoryCustom;
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import com.example.pricingservice.price.infra.persistence.PriceMapper;
 import jakarta.persistence.EntityManager;
