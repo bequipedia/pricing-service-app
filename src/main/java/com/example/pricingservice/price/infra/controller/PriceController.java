@@ -1,7 +1,7 @@
-package com.example.pricingservice.infra.controller;
+package com.example.pricingservice.price.infra.controller;
 
-import com.example.pricingservice.application.PriceService;
-import com.example.pricingservice.domain.Price;
+import com.example.pricingservice.price.application.PriceService;
+import com.example.pricingservice.price.domain.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

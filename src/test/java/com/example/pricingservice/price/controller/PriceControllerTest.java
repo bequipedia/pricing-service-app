@@ -1,7 +1,8 @@
-package com.example.pricingservice.infra.controller;
+package com.example.pricingservice.price.controller;
 
-import com.example.pricingservice.application.PriceService;
-import com.example.pricingservice.domain.Price;
+import com.example.pricingservice.price.application.PriceService;
+import com.example.pricingservice.price.domain.Price;
+import com.example.pricingservice.price.infra.controller.PriceController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
