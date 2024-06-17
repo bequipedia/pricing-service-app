@@ -8,7 +8,7 @@ This is a Spring Boot application that provides a REST endpoint to query product
 
 Following an Hexagonal Architecture approach:
 
-- **domain**: Contains the business logic (`Price` and `PriceRepository`).
+- **domain**: Contains the business logic (`Price` and `PriceRepositoryCustom`).
 - **application**: Contains the application logic (`PriceService`).
 - **infrastructure**: Contains the infrastructure implementation (`PriceController`) and data configuration (`DataInit`).
 
