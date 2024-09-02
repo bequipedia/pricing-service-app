@@ -1,7 +1,7 @@
-package com.example.pricingservice.price.infra.controller;
+package com.example.pricingservice.price.infra.controllers;
 
-import com.example.pricingservice.price.application.PriceService;
 import com.example.pricingservice.price.domain.Price;
+import com.example.pricingservice.price.application.ports.driving.PriceServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 public class PriceController {
     @Autowired
-    private PriceService priceService;
+    private PriceServicePort priceService;
 
     @GetMapping("/prices")
     public ResponseEntity<Price> getPrice(

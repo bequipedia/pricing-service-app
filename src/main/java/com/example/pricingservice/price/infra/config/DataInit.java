@@ -1,7 +1,7 @@
 package com.example.pricingservice.price.infra.config;
 
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
-import com.example.pricingservice.price.infra.persistence.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceJpaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,10 +12,10 @@ import java.time.format.DateTimeFormatter;
 @Configuration
 public class DataInit {
     @Bean
-    CommandLineRunner initDatabase(PriceRepository priceRepository) {
+    CommandLineRunner initDatabase(PriceJpaRepository priceJpaRepository) {
     return args -> {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
-      priceRepository.save(
+      priceJpaRepository.save(
           new JPAPrice(
               null,
               1,
@@ -26,7 +26,7 @@ public class DataInit {
               0,
               35.50,
               "EUR"));
-      priceRepository.save(
+      priceJpaRepository.save(
           new JPAPrice(
               null,
               1,
@@ -37,7 +37,7 @@ public class DataInit {
               1,
               25.45,
               "EUR"));
-      priceRepository.save(
+      priceJpaRepository.save(
           new JPAPrice(
               null,
               1,
@@ -48,7 +48,7 @@ public class DataInit {
               1,
               30.50,
               "EUR"));
-      priceRepository.save(
+      priceJpaRepository.save(
           new JPAPrice(
               null,
               1,

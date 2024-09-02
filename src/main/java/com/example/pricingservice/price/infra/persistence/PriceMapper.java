@@ -1,9 +1,11 @@
 package com.example.pricingservice.price.infra.persistence;
 
 import com.example.pricingservice.price.domain.Price;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PriceMapper {
-    public static Price toDomain(JPAPrice entity) {
+    public Price toDomain(JPAPrice entity) {
         return new Price(
                 entity.getId(),
                 entity.getBrandId(),
@@ -17,7 +19,7 @@ public class PriceMapper {
         );
     }
 
-    public static JPAPrice toEntity(Price domain) {
+    public JPAPrice toEntity(Price domain) {
         return new JPAPrice(
                 domain.getId(),
                 domain.getBrandId(),

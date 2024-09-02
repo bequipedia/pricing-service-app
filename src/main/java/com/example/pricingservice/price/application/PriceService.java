@@ -1,23 +1,20 @@
 package com.example.pricingservice.price.application;
 
 import com.example.pricingservice.price.domain.Price;
-import com.example.pricingservice.price.infra.persistence.PriceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.pricingservice.price.application.ports.driven.PriceRepositoryPort;
+import com.example.pricingservice.price.application.ports.driving.PriceServicePort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class PriceService {
-    @Autowired
-    private PriceRepository priceRepository;
+@RequiredArgsConstructor
+public class PriceService implements PriceServicePort {
 
+    private final PriceRepositoryPort priceRepositoryPort;
     public Optional<Price> findApplicablePrice(int productId, int brandId, LocalDateTime date) {
-        try {
-            return priceRepository.findApplicablePrice(productId, brandId, date);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+        return priceRepositoryPort.findApplicablePrice(productId, brandId, date);
     }
 }

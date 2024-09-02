@@ -1,9 +1,10 @@
 package com.example.pricingservice.price.IntTest;
 
-import com.example.pricingservice.price.infra.persistence.PriceRepository;
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
+import com.example.pricingservice.price.infra.persistence.PriceJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class PriceControllerIntTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private PriceRepository priceRepository;
+    private PriceJpaRepository priceJpaRepository;
 
     @BeforeEach
     public void setUp() {
-        priceRepository.deleteAll();
+        priceJpaRepository.deleteAll();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
-    priceRepository.save(
+    priceJpaRepository.save(
         new JPAPrice(
             null,
             1,
@@ -45,9 +46,9 @@ public class PriceControllerIntTest {
             0,
             35.50,
             "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
     }
 
     @DisplayName("shouldGetPrice with various dates")
@@ -61,6 +62,18 @@ public class PriceControllerIntTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.price").value(expectedPrice));
+    }
+
+    @Test
+    public void shouldReturnNotFoundWhenPriceIsNotFound() throws Exception {
+        String applicableDate = "1789-06-17T10:00:00";
+
+        mockMvc.perform(get("/prices")
+                        .param("applicableDate", applicableDate)
+                        .param("productId", "35455")
+                        .param("brandId", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     static Stream<Object[]> priceProvider() {

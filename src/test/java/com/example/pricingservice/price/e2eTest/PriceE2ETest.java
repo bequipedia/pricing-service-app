@@ -1,6 +1,6 @@
 package com.example.pricingservice.price.e2eTest;
 
-import com.example.pricingservice.price.infra.persistence.PriceRepository;
+import com.example.pricingservice.price.infra.persistence.PriceJpaRepository;
 import com.example.pricingservice.price.infra.persistence.JPAPrice;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,14 +24,14 @@ public class PriceE2ETest {
     private int port;
 
     @Autowired
-    private PriceRepository priceRepository;
+    private PriceJpaRepository priceJpaRepository;
 
     @BeforeEach
     public void setUp() {
         RestAssured.port = port;
-        priceRepository.deleteAll();
+        priceJpaRepository.deleteAll();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
-    priceRepository.save(
+    priceJpaRepository.save(
         new JPAPrice(
             null,
             1,
@@ -42,9 +42,9 @@ public class PriceE2ETest {
             0,
             35.50,
             "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
-        priceRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-14-15.00.00", formatter), LocalDateTime.parse("2020-06-14-18.30.00", formatter), 2, 35455, 1, 25.45, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-00.00.00", formatter), LocalDateTime.parse("2020-06-15-11.00.00", formatter), 3, 35455, 1, 30.50, "EUR"));
+        priceJpaRepository.save(new JPAPrice(null, 1, LocalDateTime.parse("2020-06-15-16.00.00", formatter), LocalDateTime.parse("2020-12-31-23.59.59", formatter), 4, 35455, 1, 38.95, "EUR"));
     }
 
     @DisplayName("getPrice with various dates")
